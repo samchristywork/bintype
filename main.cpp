@@ -11,6 +11,18 @@ public:
   std::string data;
 };
 
+bool search_file(std::string filename, std::string data) {
+  std::ifstream file(filename);
+  std::string line;
+  while (std::getline(file, line)) {
+    if (line.find(data) != std::string::npos) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 void parse_tsv(std::string filename, std::vector<heuristic> &heuristics) {
   std::ifstream file(filename);
 
