@@ -9,6 +9,9 @@ public:
   std::string language;
   std::string directive;
   std::string data;
+  void print();
+  bool apply(std::string filename);
+  std::string to_string();
 };
 
 bool search_file(std::string filename, std::string data) {
@@ -16,6 +19,25 @@ bool search_file(std::string filename, std::string data) {
   std::string line;
   while (std::getline(file, line)) {
     if (line.find(data) != std::string::npos) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+void heuristic::print() {
+  std::cout << language << " " << directive << " " << data << std::endl;
+}
+
+std::string heuristic::to_string() {
+  return language + " " + directive + " " + data;
+}
+
+bool heuristic::apply(std::string filename) {
+  // for "contains" directive
+  if (directive == "contains") {
+    if (search_file(filename, data)) {
       return true;
     }
   }
